@@ -6,12 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    header with title
-    Form Submit
-    div container for playlists and tracks
-        ordered list of playlists or tracks
-    div container for the embedded video
+
+    <body>
+        <header>
+            <h1>Napster 2.0 + Videos!</h1>
+        </header>
+        <main>
+            <div>
+                <h2>Search for a playlist:</h2>
+                <form id="search-form">
+                    <input id="search-input" name="search-playlist" type="text">
+                    <button type="submit" class="btn">Search</button>
+                </form>
+            </div>
+            <div>
+                <div id="playlists-tracks"></div>
+                <div id="youtube"></div>
+            </div>
+            <script src="assets/js"></script>
+        </main>
     
-</body>
+    </body>
 </html>
