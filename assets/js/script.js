@@ -53,6 +53,7 @@ var getPlaylist = function (searchResult) {
 var renderPlaylists = function (info) {
   
 playlistsContainerEl.InnerHTML = "";
+trackListEl.innerHTML = "";
   for (i = 0; i < info.search.data.playlists.length; i++) {
     var playlistName = info.search.data.playlists[i].name;
     var playlistId = info.search.data.playlists[i].id;
