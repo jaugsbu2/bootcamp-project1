@@ -14,8 +14,12 @@ var formSubmitEl = document.querySelector('#search-form')
 var playlistsBtnEl = document.querySelector('#playlists')
 var playlistsContainerEl = document.querySelector('#container-playlists')
 var trackListEl = document.querySelector('#tracks')
-
+var onPlayEl = document.querySelector('#on-play')
+var dataState = trackListEl.getAttribute('data-list') // added a data-set variable to be set to true or false for playlist, if data-list is false then youtube play button will not work
 var searchResult = '';
+var playlistId = '';
+
+// Searchbar input from user
 
 var formSubmitHandler = function (event) {
   event.preventDefault();
@@ -24,10 +28,11 @@ var formSubmitHandler = function (event) {
   if (searchResult) {
     getPlaylist(searchResult);
   } else {
-    alert('please write something');
+    alert('please write something'); // need to replace this alert with a modal
   }
 }
 
+// Napster section for JS
 var getPlaylist = function (searchResult) {
 
   var apiUrl = 'http://api.napster.com/v2.2/search/verbose?pretty=true&apikey=NzA2MTliZDAtY2JjMS00ZDg2LTgwZDUtODU4Njk0MWI2N2Y5&per_type_limit=5&query=' + searchResult + '&type=playlist'
@@ -35,7 +40,7 @@ var getPlaylist = function (searchResult) {
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (info) {
-      
+        console.log(info);
         renderPlaylists(info);
       });
     }
@@ -60,23 +65,23 @@ var renderPlaylists = function (info) {
   }
 };
 
-var clickEventHandler = function(event) {
-  var playlistId = event.target.getAttribute("id");
+var clickEventHandler = function (event) {
+  playlistId = event.target.getAttribute("id");
   if (playlistId) {
     getTracks(playlistId)
   }
 }
 
-var getTracks = function(playlistId) {
+var getTracks = function (playlistId) {
 
   var apiUrl = 'http://api.napster.com/v2.2/playlists/' + playlistId + '/tracks?pretty=true&apikey=NzA2MTliZDAtY2JjMS00ZDg2LTgwZDUtODU4Njk0MWI2N2Y5&limit=20'
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (info) {
-      
         console.log(info)
         renderTracks(info)
+        localStorage.setItem(playlistId, JSON.stringify(info)); // save playlistID and the tracks for specific playslit to localstorage as JSON readable
       });
     }
     else {
@@ -85,22 +90,81 @@ var getTracks = function(playlistId) {
   })
 }
 
-var renderTracks = function(info) {
+var renderTracks = function (info) {
 
-  console.log(info.tracks.length)
-
+  if (dataState == 'false') {
+    trackListEl.setAttribute('data-list', 'true') //once the tracks are listed on screen the youtube play button function will become available
+    dataState = 'true';
+  }
   for (i = 0; i < info.tracks.length; i++) {
+    var trackNum = i;
     var trackName = info.tracks[i].name;
     var artist = info.tracks[i].artistName;
-    var trackEl = document.createElement('li')
-    trackEl.textContent = artist + " / " + trackName
+    var trackEl = document.createElement('button') //create button instead of list to choose tracks
+    trackEl.textContent = trackNum + 1 + ' ' + artist + " / " + trackName
+    trackEl.setAttribute('class', 'track-list')
     trackEl.setAttribute('name', trackName)
     trackEl.setAttribute('artist', artist)
+    trackEl.setAttribute('trackNum', trackNum)
+
     trackListEl.appendChild(trackEl)
   }
 
 }
 
+// Youtube video section of the JS
+
+var onPlayHandler = function (event) {
+
+  if (dataState == 'true') {
+    var onPlay = event.target.getAttribute("id");
+    if (onPlay) {
+      getYoutubeVideo(playlistId)
+    }
+  } else {
+    return;
+  }
+
+}
+
+var getYoutubeVideo = function (playlistId, trackStart) {
+
+  var playlistObject = JSON.parse(localStorage.getItem(playlistId));
+  var trackStart = 0;
+  var artistName = playlistObject.tracks[trackStart].artistName;
+  var songTitle = playlistObject.tracks[trackStart].name;
+  var artistNameFormat = artistName.replace(/\s/g, '%20');
+  var songTitleFormat = songTitle.replace(/\s/g, '%20');
+
+  var searchString = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=' + artistNameFormat + '%20' + songTitleFormat + '&key=AIzaSyA9MRrVXUUlMjQsmZEy6sFRTB7c4NhqVUU';
+
+  fetch(searchString)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var videos = data.items
+      for (video of videos) {
+        var youtubeVideo = video.id.videoId;
+        var youtubeEmbedEl = document.querySelector('#youtube-player');
+        var youtubeEmbedLink = "https://youtube.com/embed/" + youtubeVideo;
+        youtubeEmbedEl.setAttribute("src", youtubeEmbedLink)
+      }
+    })
+}
+
+
+
+// Choose track from playlist 
+// document.addEventListener('click', function(event){
+//   var target = event.target.closest(".track-list")
+//   console.log(target.getAttribute('tracknum'))
+// });
+
+
+// Event listeners for button clicks
 
 formSubmitEl.addEventListener('submit', formSubmitHandler);
 playlistsContainerEl.addEventListener('click', clickEventHandler);
+onPlayEl.addEventListener('click', onPlayHandler);
