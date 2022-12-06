@@ -16,8 +16,15 @@ var playlistsContainerEl = document.querySelector('#container-playlists')
 var trackListEl = document.querySelector('#tracks')
 var onPlayEl = document.querySelector('#on-play')
 var dataState = trackListEl.getAttribute('data-list') // added a data-set variable to be set to true or false for playlist, if data-list is false then youtube play button will not work
+var modalDivEl = document.getElementById('modalDiv')
+var modal = document.getElementById('modalBox')
+var modalSpan = document.getElementsByClassName('close')[0];
 var searchResult = '';
 var playlistId = '';
+
+var displayModal = function() {
+  modal.style.display = "block"
+}
 
 // Searchbar input from user
 
@@ -28,7 +35,21 @@ var formSubmitHandler = function (event) {
   if (searchResult) {
     getPlaylist(searchResult);
   } else {
-    alert('please write something'); // need to replace this alert with a modal
+
+    var modalContent = document.createElement("p");
+    modalContent.textContent = "Please Input a Search Term"
+    console.log(modalDivEl.firstChild)
+    modalDivEl.appendChild(modalContent)
+
+    modal.style.display = "block"
+    modalSpan.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
   }
 }
 
