@@ -15,9 +15,11 @@ var playlistsBtnEl = document.querySelector('#playlists')
 var playlistsContainerEl = document.querySelector('#container-playlists')
 var trackListEl = document.querySelector('#tracks')
 var onPlayEl = document.querySelector('#on-play')
+var nextEl = document.querySelector('#next-song')
 var dataState = trackListEl.getAttribute('data-list') // added a data-set variable to be set to true or false for playlist, if data-list is false then youtube play button will not work
 var searchResult = '';
 var playlistId = '';
+var trackNumber = 0;
 
 // Searchbar input from user
 
@@ -127,16 +129,17 @@ var onPlayHandler = function (event) {
 
 }
 
-var getYoutubeVideo = function (playlistId, trackStart) {
+var getYoutubeVideo = function (playlistId, trackNumber = 0) {
 
+  console.log(trackNumber)
   var playlistObject = JSON.parse(localStorage.getItem(playlistId));
-  var trackStart = 0;
-  var artistName = playlistObject.tracks[trackStart].artistName;
-  var songTitle = playlistObject.tracks[trackStart].name;
+  var artistName = playlistObject.tracks[trackNumber].artistName;
+  var songTitle = playlistObject.tracks[trackNumber].name;
   var artistNameFormat = artistName.replace(/\s/g, '%20');
   var songTitleFormat = songTitle.replace(/\s/g, '%20');
 
   var searchString = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=' + artistNameFormat + '%20' + songTitleFormat + '&key=AIzaSyA9MRrVXUUlMjQsmZEy6sFRTB7c4NhqVUU';
+  console.log(searchString)
 
   fetch(searchString)
     .then(function (response) {
@@ -154,6 +157,17 @@ var getYoutubeVideo = function (playlistId, trackStart) {
     })
 }
 
+var nextSongHandler = function(event){
+  if (dataState == 'true') {
+    var nextSong = event.target.getAttribute("id");
+    if (nextSong) {
+      trackNumber += 1;
+      getYoutubeVideo(playlistId, trackNumber)
+    }
+  } else {
+    return;
+  }
+}
 
 
 // Choose track from playlist 
@@ -168,3 +182,4 @@ var getYoutubeVideo = function (playlistId, trackStart) {
 formSubmitEl.addEventListener('submit', formSubmitHandler);
 playlistsContainerEl.addEventListener('click', clickEventHandler);
 onPlayEl.addEventListener('click', onPlayHandler);
+nextEl.addEventListener('click', nextSongHandler);
