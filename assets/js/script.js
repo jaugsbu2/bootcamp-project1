@@ -38,16 +38,17 @@ var formSubmitHandler = function (event) {
 
     var modalContent = document.createElement("p");
     modalContent.textContent = "Please Input a Search Term"
-    console.log(modalDivEl.firstChild)
     modalDivEl.appendChild(modalContent)
 
     modal.style.display = "block"
     modalSpan.onclick = function() {
       modal.style.display = "none";
+      modalDivEl.removeChild(modalContent)
     }
     window.onclick = function(event) {
       if (event.target == modal) {
         modal.style.display = "none";
+        modalDivEl.removeChild(modalContent)
       }
     }
   }
@@ -67,6 +68,22 @@ var getPlaylist = function (searchResult) {
     }
     else {
       console.log(response)
+
+      var modalContent = document.createElement("p");
+      modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
+      modalDivEl.appendChild(modalContent)
+  
+      modal.style.display = "block"
+      modalSpan.onclick = function() {
+        modal.style.display = "none";
+        modalDivEl.removeChild(modalContent)
+      }
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+          modalDivEl.removeChild(modalContent)
+        }
+      }
     }
   })
 }
@@ -107,6 +124,22 @@ var getTracks = function (playlistId) {
     }
     else {
       console.log(response)
+
+      var modalContent = document.createElement("p");
+      modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
+      modalDivEl.appendChild(modalContent)
+  
+      modal.style.display = "block"
+      modalSpan.onclick = function() {
+        modal.style.display = "none";
+        modalDivEl.removeChild(modalContent)
+      }
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+          modalDivEl.removeChild(modalContent)
+        }
+      }
     }
   })
 }
@@ -161,7 +194,28 @@ var getYoutubeVideo = function (playlistId, trackStart) {
 
   fetch(searchString)
     .then(function (response) {
-      return response.json();
+      if (response.ok) {
+        return response.json();
+      }
+      else {
+        console.log(response)
+
+        var modalContent = document.createElement("p");
+        modalContent.textContent = "YouTube is Unreachable... Bummer, try again later."
+        modalDivEl.appendChild(modalContent)
+    
+        modal.style.display = "block"
+        modalSpan.onclick = function() {
+          modal.style.display = "none";
+          modalDivEl.removeChild(modalContent)
+        }
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            modalDivEl.removeChild(modalContent)
+          }
+        }
+      }
     })
     .then(function (data) {
       console.log(data);
