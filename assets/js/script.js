@@ -89,7 +89,9 @@ var getPlaylist = function (searchResult) {
 }
 
 var renderPlaylists = function (info) {
-
+  
+playlistsContainerEl.InnerHTML = "";
+trackListEl.innerHTML = "";
   for (i = 0; i < info.search.data.playlists.length; i++) {
     var playlistName = info.search.data.playlists[i].name;
     var playlistId = info.search.data.playlists[i].id;
@@ -150,6 +152,7 @@ var renderTracks = function (info) {
     trackListEl.setAttribute('data-list', 'true') //once the tracks are listed on screen the youtube play button function will become available
     dataState = 'true';
   }
+  trackListEl.innerHTML = "";
   for (i = 0; i < info.tracks.length; i++) {
     var trackNum = i;
     var trackName = info.tracks[i].name;
