@@ -169,12 +169,19 @@ var nextSongHandler = function(event){
   }
 }
 
-
-// Choose track from playlist 
-// document.addEventListener('click', function(event){
-//   var target = event.target.closest(".track-list")
-//   console.log(target.getAttribute('tracknum'))
-// });
+var chooseSong = function(event){
+  if (dataState == 'true') {
+    var pickSong = event.target.getAttribute("tracknum");
+    if (pickSong) {
+      console.log('Choose song hit')
+      console.log(pickSong)
+      trackNumber = pickSong;
+      getYoutubeVideo(playlistId, trackNumber)
+    }
+  } else {
+    return;
+  }
+}
 
 
 // Event listeners for button clicks
@@ -183,3 +190,4 @@ formSubmitEl.addEventListener('submit', formSubmitHandler);
 playlistsContainerEl.addEventListener('click', clickEventHandler);
 onPlayEl.addEventListener('click', onPlayHandler);
 nextEl.addEventListener('click', nextSongHandler);
+trackListEl.addEventListener('click', chooseSong);
