@@ -24,15 +24,19 @@
         <section>
             <div>
                 <div id="container-playlists">
-                    <ol id="playlists">
-                    </ol>
+                    <div id="playlists">
+                    </div>
                 </div>
                 <div id="container-tracks">
-                    <ol id="tracks">
+                    <ol id="tracks" data-list="false">
                     </ol>
                 </div>
             </div>
-            <div id="youtube"></div>
+            <div id="youtube">
+                <iframe id='youtube-player' src="" frameborder="0" data-set="false"></iframe>
+            </div>
+            <button id="on-play" class="btn">Play</button>
+            <button id="next-song" class="btn">Next</button>
         </section>
 
         <script src="./assets/js/script.js"></script>
