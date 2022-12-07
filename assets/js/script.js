@@ -173,8 +173,6 @@ var chooseSong = function(event){
   if (dataState == 'true') {
     var pickSong = event.target.getAttribute("tracknum");
     if (pickSong) {
-      console.log('Choose song hit')
-      console.log(pickSong)
       trackNumber = pickSong;
       getYoutubeVideo(playlistId, trackNumber)
     }
