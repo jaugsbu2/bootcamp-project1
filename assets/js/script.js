@@ -88,7 +88,7 @@ var getPlaylist = function (searchResult) {
       }
     }
   })
-}
+};
 
 var renderPlaylists = function (info) {
   
@@ -101,6 +101,7 @@ trackListEl.innerHTML = "";
     playlistEl.textContent = playlistName + " / " + playlistId
     playlistEl.setAttribute('name', playlistName)
     playlistEl.setAttribute('id', playlistId)
+    playlistEl.setAttribute('class', 'playlistBtn')
 
     playlistsContainerEl.appendChild(playlistEl)
 

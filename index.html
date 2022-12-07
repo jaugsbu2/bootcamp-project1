@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Napster is Back!</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
@@ -18,10 +19,11 @@
             <h2>Input a music genre, song, or artist to find a playlist:</h2>
             <form id="search-form">
                 <input id="search-input" name="search-playlist" type="text">
-                <button type="submit" class="btn">Search</button>
+                <button type="submit" class="button is-medium is outlined">Search</button>
             </form>
         </section>
         <section>
+            <div class="parent-div">
             <div id = "modalBox" class="modal">
                 <div id="modalDiv" class="modal-content">
                     <span class="close">&times;</span>
@@ -32,16 +34,20 @@
                     <div id="playlists">
                     </div>
                 </div>
-                <div id="container-tracks">
-                    <ol id="tracks" data-list="false">
-                    </ol>
+                <div class="content">
+                    <div id="container-tracks">
+                        <ol id="tracks" data-list="false">
+                        </ol>
+                    </div>
+                    <div id="youtube">
+                        <iframe id='youtube-player' src="" frameborder="0" data-set="false"></iframe>
+                        <div>
+                            <button id="next-song" class="button is-medium is-outlined">Next</button>
+                            <button id="on-play" class="button is-medium is outlined">Play</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div id="youtube">
-                <iframe id='youtube-player' src="" frameborder="0" data-set="false"></iframe>
-            </div>
-            <button id="on-play" class="btn">Play</button>
-            <button id="next-song" class="btn">Next</button>
         </section>
 
         <script src="./assets/js/script.js"></script>
