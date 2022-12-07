@@ -30,6 +30,14 @@ html {
     background-image: url(extralarge.jpg);
 }
 
+footer {
+    font-family: Thunderstorm;
+    color: rgb(2 255 218);
+    font-size: 50px;
+    -webkit-text-stroke: 1.5px black;
+    text-align: center;
+}
+
 form .button {
     color: white;
     background-color: black;
