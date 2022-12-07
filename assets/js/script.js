@@ -192,7 +192,7 @@ var renderTracks = function (info) {
 
     trackListEl.appendChild(trackEl)
   }
-
+  trackListEl.setAttribute('class', 'overflow')
 }
 
 // Youtube video section of the JS
