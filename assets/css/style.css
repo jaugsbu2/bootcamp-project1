@@ -20,8 +20,8 @@ header {
 h2 {
     font-family: Thunderstorm;
     text-align: center;
-    font-size: 50px;
-    color: white;
+    font-size: 70px;
+    color: rgb(2 255 218);
     font-weight: 300px;
     -webkit-text-stroke: 1.5px black;
 }
@@ -46,7 +46,7 @@ form .button {
 }
 
 .playlistBtn {
-    background-color: rgb(101, 247, 130);
+    background-color: rgb(2 255 218);
     padding: 10px;
     color: black;
     font-family: sans-serif;
@@ -94,6 +94,10 @@ form .button {
     width: 66%;
 }
 
+#tracks {
+  /* Add Y-scroll to list of tracks in the sidebar nav panel */
+}
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -131,3 +135,6 @@ form .button {
     text-decoration: none;
     cursor: pointer;
   }
+
+  /* Media query */
+  /*  */

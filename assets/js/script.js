@@ -121,6 +121,7 @@ var renderPlaylists = function (info) {
       playlistEl.textContent = playlistName + " / " + playlistId
       playlistEl.setAttribute('name', playlistName)
       playlistEl.setAttribute('id', playlistId)
+      playlistEl.setAttribute('class', 'playlistBtn')
 
       playlistsContainerEl.appendChild(playlistEl)
 
@@ -284,6 +285,8 @@ var chooseSong = function (event) {
     return;
   }
 }
+
+// hide buttons until playlist tracks is rendered on screen
 
 
 // Event listeners for button clicks
