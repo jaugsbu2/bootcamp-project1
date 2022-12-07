@@ -48,10 +48,12 @@ var getPlaylist = function (searchResult) {
       console.log(response)
     }
   })
-}
+};
 
 var renderPlaylists = function (info) {
 
+  playlistsContainerEl.innerHTML = ""
+  trackListEl.innerHTML = ""
   for (i = 0; i < info.search.data.playlists.length; i++) {
     var playlistName = info.search.data.playlists[i].name;
     var playlistId = info.search.data.playlists[i].id;
@@ -59,6 +61,7 @@ var renderPlaylists = function (info) {
     playlistEl.textContent = playlistName + " / " + playlistId
     playlistEl.setAttribute('name', playlistName)
     playlistEl.setAttribute('id', playlistId)
+    playlistEl.setAttribute('class', 'playlistBtn')
 
     playlistsContainerEl.appendChild(playlistEl)
 
@@ -96,6 +99,7 @@ var renderTracks = function (info) {
     trackListEl.setAttribute('data-list', 'true') //once the tracks are listed on screen the youtube play button function will become available
     dataState = 'true';
   }
+  trackListEl.innerHTML = "";
   for (i = 0; i < info.tracks.length; i++) {
     var trackNum = i;
     var trackName = info.tracks[i].name;
@@ -153,14 +157,6 @@ var getYoutubeVideo = function (playlistId, trackStart) {
       }
     })
 }
-
-
-
-// Choose track from playlist 
-// document.addEventListener('click', function(event){
-//   var target = event.target.closest(".track-list")
-//   console.log(target.getAttribute('tracknum'))
-// });
 
 
 // Event listeners for button clicks
