@@ -20,7 +20,6 @@ var dataState = trackListEl.getAttribute('data-list') // added a data-set variab
 var modalDivEl = document.getElementById('modalDiv')
 var modal = document.getElementById('modalBox')
 var modalSpan = document.getElementsByClassName('close')[0];
-var playNextEl = document.getElementById('play-next');
 var searchResult = '';
 var playlistId = '';
 var trackNumber = 0;
@@ -128,6 +127,7 @@ var renderPlaylists = function (info) {
       playlistEl.textContent = playlistName + " / " + playlistId
       playlistEl.setAttribute('name', playlistName)
       playlistEl.setAttribute('id', playlistId)
+      playlistEl.setAttribute('class', 'playlistBtn')
 
       playlistsContainerEl.appendChild(playlistEl)
 
@@ -290,6 +290,7 @@ var chooseSong = function (event) {
     return;
   }
 }
+
 
 hidePlayNextBtn()
 
