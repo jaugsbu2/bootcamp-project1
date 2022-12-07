@@ -88,14 +88,15 @@ form .button {
     width: 100%;
 }
 
+.overflow {
+    overflow-y: scroll;
+    height: 680px;
+}
+
 #youtube {
     display: flex;
     flex-direction: column;
     width: 66%;
-}
-
-#tracks {
-  /* Add Y-scroll to list of tracks in the sidebar nav panel */
 }
 
 /* The Modal (background) */
@@ -114,11 +115,15 @@ form .button {
   
   /* Modal Content/Box */
   .modal-content {
-    background-color: #fefefe;
+    background-image: url(CbaR0c_WEAExNlA.jpg);
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    font-family: Thunderstorm;
+    font-size: 40px;
+    color: white;
+    text-align: center;
   }
   
   /* The Close Button */

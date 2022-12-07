@@ -39,7 +39,7 @@ var formSubmitHandler = function (event) {
   } else {
 
     var modalContent = document.createElement("p");
-    modalContent.textContent = "Please Input a Search Term"
+    modalContent.textContent = "Please type a genre, artist or song!"
     modalDivEl.appendChild(modalContent)
 
     modal.style.display = "block"
@@ -95,7 +95,7 @@ var renderPlaylists = function (info) {
 
   if (info.meta.returnedCount === 0) {
     var modalContent = document.createElement("p");
-    modalContent.textContent = "Your search did not return any results, try searching for a genre, artist, or song."
+    modalContent.textContent = "Your search came up with nothing! Try searching for a genre, artist, or song."
     modalDivEl.appendChild(modalContent)
 
     modal.style.display = "block"
@@ -112,7 +112,7 @@ var renderPlaylists = function (info) {
   }
   else {
 
-    playlistsContainerEl.InnerHTML = "";
+    playlistsContainerEl.innerHTML = "";
     trackListEl.innerHTML = "";
     for (i = 0; i < info.search.data.playlists.length; i++) {
       var playlistName = info.search.data.playlists[i].name;
@@ -153,7 +153,7 @@ var getTracks = function (playlistId) {
       console.log(response)
 
       var modalContent = document.createElement("p");
-      modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
+      modalContent.textContent = "Napster says not today... Bummer! Try again later."
       modalDivEl.appendChild(modalContent)
 
       modal.style.display = "block"
@@ -192,7 +192,7 @@ var renderTracks = function (info) {
 
     trackListEl.appendChild(trackEl)
   }
-
+  trackListEl.setAttribute('class', 'overflow')
 }
 
 // Youtube video section of the JS
@@ -231,7 +231,7 @@ var getYoutubeVideo = function (playlistId, trackNumber = 0) {
         console.log(response)
 
         var modalContent = document.createElement("p");
-        modalContent.textContent = "YouTube is Unreachable... Bummer, try again later."
+        modalContent.textContent = "YouTube says not today... Bummer! Try again later."
         modalDivEl.appendChild(modalContent)
 
         modal.style.display = "block"
