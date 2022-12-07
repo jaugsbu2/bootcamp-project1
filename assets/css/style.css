@@ -1,7 +1,3 @@
-.track-list {
-    display: block;
-}
-
 @font-face {
     font-family: Thunderstorm;
     src: url(Thunderstorm.ttf);
@@ -73,6 +69,7 @@ form .button {
     font-family: sans-serif;
     border-radius: 10px;
     margin: 5px;
+    display: block;
 }
 
 #search-input {
@@ -94,5 +91,6 @@ form .button {
 #youtube {
     display: flex;
     flex-direction: column;
+    width: 66%;
 }
 
