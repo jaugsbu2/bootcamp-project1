@@ -24,7 +24,7 @@ var searchResult = '';
 var playlistId = '';
 var trackNumber = 0;
 
-var displayModal = function() {
+var displayModal = function () {
   modal.style.display = "block"
 }
 
@@ -43,11 +43,11 @@ var formSubmitHandler = function (event) {
     modalDivEl.appendChild(modalContent)
 
     modal.style.display = "block"
-    modalSpan.onclick = function() {
+    modalSpan.onclick = function () {
       modal.style.display = "none";
       modalDivEl.removeChild(modalContent)
     }
-    window.onclick = function(event) {
+    window.onclick = function (event) {
       if (event.target == modal) {
         modal.style.display = "none";
         modalDivEl.removeChild(modalContent)
@@ -74,42 +74,64 @@ var getPlaylist = function (searchResult) {
       var modalContent = document.createElement("p");
       modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
       modalDivEl.appendChild(modalContent)
-  
+
       modal.style.display = "block"
-      modalSpan.onclick = function() {
+      modalSpan.onclick = function () {
         modal.style.display = "none";
         modalDivEl.removeChild(modalContent)
       }
-      window.onclick = function(event) {
+      window.onclick = function (event) {
         if (event.target == modal) {
           modal.style.display = "none";
           modalDivEl.removeChild(modalContent)
         }
       }
+      return
     }
   })
 }
 
 var renderPlaylists = function (info) {
-  
-playlistsContainerEl.InnerHTML = "";
-trackListEl.innerHTML = "";
-  for (i = 0; i < info.search.data.playlists.length; i++) {
-    var playlistName = info.search.data.playlists[i].name;
-    var playlistId = info.search.data.playlists[i].id;
-    var playlistEl = document.createElement('button')
-    playlistEl.textContent = playlistName + " / " + playlistId
-    playlistEl.setAttribute('name', playlistName)
-    playlistEl.setAttribute('id', playlistId)
 
-    playlistsContainerEl.appendChild(playlistEl)
+  if (info.meta.returnedCount === 0) {
+    var modalContent = document.createElement("p");
+    modalContent.textContent = "Your search did not return any results, try searching for a genre, artist, or song."
+    modalDivEl.appendChild(modalContent)
 
+    modal.style.display = "block"
+    modalSpan.onclick = function () {
+      modal.style.display = "none";
+      modalDivEl.removeChild(modalContent)
+    }
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+        modalDivEl.removeChild(modalContent)
+      }
+    }
+  }
+  else {
+
+    playlistsContainerEl.InnerHTML = "";
+    trackListEl.innerHTML = "";
+    for (i = 0; i < info.search.data.playlists.length; i++) {
+      var playlistName = info.search.data.playlists[i].name;
+      var playlistId = info.search.data.playlists[i].id;
+      var playlistEl = document.createElement('button')
+      playlistEl.textContent = playlistName + " / " + playlistId
+      playlistEl.setAttribute('name', playlistName)
+      playlistEl.setAttribute('id', playlistId)
+
+      playlistsContainerEl.appendChild(playlistEl)
+
+    }
   }
 };
 
 var clickEventHandler = function (event) {
   playlistId = event.target.getAttribute("id");
   if (playlistId) {
+    localStorage.clear()
     getTracks(playlistId)
   }
 }
@@ -132,18 +154,19 @@ var getTracks = function (playlistId) {
       var modalContent = document.createElement("p");
       modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
       modalDivEl.appendChild(modalContent)
-  
+
       modal.style.display = "block"
-      modalSpan.onclick = function() {
+      modalSpan.onclick = function () {
         modal.style.display = "none";
         modalDivEl.removeChild(modalContent)
       }
-      window.onclick = function(event) {
+      window.onclick = function (event) {
         if (event.target == modal) {
           modal.style.display = "none";
           modalDivEl.removeChild(modalContent)
         }
       }
+      return
     }
   })
 }
@@ -209,18 +232,19 @@ var getYoutubeVideo = function (playlistId, trackNumber = 0) {
         var modalContent = document.createElement("p");
         modalContent.textContent = "YouTube is Unreachable... Bummer, try again later."
         modalDivEl.appendChild(modalContent)
-    
+
         modal.style.display = "block"
-        modalSpan.onclick = function() {
+        modalSpan.onclick = function () {
           modal.style.display = "none";
           modalDivEl.removeChild(modalContent)
         }
-        window.onclick = function(event) {
+        window.onclick = function (event) {
           if (event.target == modal) {
             modal.style.display = "none";
             modalDivEl.removeChild(modalContent)
           }
         }
+        return
       }
     })
     .then(function (data) {
@@ -235,7 +259,7 @@ var getYoutubeVideo = function (playlistId, trackNumber = 0) {
     })
 }
 
-var nextSongHandler = function(event){
+var nextSongHandler = function (event) {
   if (dataState == 'true') {
     var nextSong = event.target.getAttribute("id");
     if (nextSong) {
@@ -247,7 +271,7 @@ var nextSongHandler = function(event){
   }
 }
 
-var chooseSong = function(event){
+var chooseSong = function (event) {
   if (dataState == 'true') {
     var pickSong = event.target.getAttribute("tracknum");
     if (pickSong) {
