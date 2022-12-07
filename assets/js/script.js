@@ -89,7 +89,7 @@ var getPlaylist = function (searchResult) {
       return
     }
   })
-}
+};
 
 var renderPlaylists = function (info) {
 
