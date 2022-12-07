@@ -17,16 +17,9 @@ var trackListEl = document.querySelector('#tracks')
 var onPlayEl = document.querySelector('#on-play')
 var nextEl = document.querySelector('#next-song')
 var dataState = trackListEl.getAttribute('data-list') // added a data-set variable to be set to true or false for playlist, if data-list is false then youtube play button will not work
-var modalDivEl = document.getElementById('modalDiv')
-var modal = document.getElementById('modalBox')
-var modalSpan = document.getElementsByClassName('close')[0];
 var searchResult = '';
 var playlistId = '';
 var trackNumber = 0;
-
-var displayModal = function() {
-  modal.style.display = "block"
-}
 
 // Searchbar input from user
 
@@ -37,22 +30,7 @@ var formSubmitHandler = function (event) {
   if (searchResult) {
     getPlaylist(searchResult);
   } else {
-
-    var modalContent = document.createElement("p");
-    modalContent.textContent = "Please Input a Search Term"
-    modalDivEl.appendChild(modalContent)
-
-    modal.style.display = "block"
-    modalSpan.onclick = function() {
-      modal.style.display = "none";
-      modalDivEl.removeChild(modalContent)
-    }
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-        modalDivEl.removeChild(modalContent)
-      }
-    }
+    alert('please write something'); // need to replace this alert with a modal
   }
 }
 
@@ -70,30 +48,12 @@ var getPlaylist = function (searchResult) {
     }
     else {
       console.log(response)
-
-      var modalContent = document.createElement("p");
-      modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
-      modalDivEl.appendChild(modalContent)
-  
-      modal.style.display = "block"
-      modalSpan.onclick = function() {
-        modal.style.display = "none";
-        modalDivEl.removeChild(modalContent)
-      }
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-          modalDivEl.removeChild(modalContent)
-        }
-      }
     }
   })
 }
 
 var renderPlaylists = function (info) {
-  
-playlistsContainerEl.InnerHTML = "";
-trackListEl.innerHTML = "";
+
   for (i = 0; i < info.search.data.playlists.length; i++) {
     var playlistName = info.search.data.playlists[i].name;
     var playlistId = info.search.data.playlists[i].id;
@@ -128,22 +88,6 @@ var getTracks = function (playlistId) {
     }
     else {
       console.log(response)
-
-      var modalContent = document.createElement("p");
-      modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
-      modalDivEl.appendChild(modalContent)
-  
-      modal.style.display = "block"
-      modalSpan.onclick = function() {
-        modal.style.display = "none";
-        modalDivEl.removeChild(modalContent)
-      }
-      window.onclick = function(event) {
-        if (event.target == modal) {
-          modal.style.display = "none";
-          modalDivEl.removeChild(modalContent)
-        }
-      }
     }
   })
 }
@@ -154,7 +98,6 @@ var renderTracks = function (info) {
     trackListEl.setAttribute('data-list', 'true') //once the tracks are listed on screen the youtube play button function will become available
     dataState = 'true';
   }
-  trackListEl.innerHTML = "";
   for (i = 0; i < info.tracks.length; i++) {
     var trackNum = i;
     var trackName = info.tracks[i].name;
@@ -200,28 +143,7 @@ var getYoutubeVideo = function (playlistId, trackNumber = 0) {
 
   fetch(searchString)
     .then(function (response) {
-      if (response.ok) {
-        return response.json();
-      }
-      else {
-        console.log(response)
-
-        var modalContent = document.createElement("p");
-        modalContent.textContent = "YouTube is Unreachable... Bummer, try again later."
-        modalDivEl.appendChild(modalContent)
-    
-        modal.style.display = "block"
-        modalSpan.onclick = function() {
-          modal.style.display = "none";
-          modalDivEl.removeChild(modalContent)
-        }
-        window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-            modalDivEl.removeChild(modalContent)
-          }
-        }
-      }
+      return response.json();
     })
     .then(function (data) {
       console.log(data);
@@ -261,7 +183,6 @@ var chooseSong = function(event){
   }
 }
 
-
 // Event listeners for button clicks
 
 formSubmitEl.addEventListener('submit', formSubmitHandler);
@@ -269,4 +190,3 @@ playlistsContainerEl.addEventListener('click', clickEventHandler);
 onPlayEl.addEventListener('click', onPlayHandler);
 nextEl.addEventListener('click', nextSongHandler);
 trackListEl.addEventListener('click', chooseSong);
-
