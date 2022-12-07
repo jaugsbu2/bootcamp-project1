@@ -198,8 +198,11 @@ var renderTracks = function (info) {
     trackListEl.appendChild(trackEl)
   }
 
+  trackListEl.setAttribute('class', 'overflow')
+
   onPlayEl.style.visibility = "visible";   // Show next and play buttons
   nextEl.style.visibility = "visible";
+
 
 }
 
