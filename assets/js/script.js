@@ -66,7 +66,7 @@ var formSubmitHandler = function (event) {
 // Napster section for JS
 var getPlaylist = function (searchResult) {
 
-  var apiUrl = 'http://api.napster.com/v2.2/search/verbose?pretty=true&apikey=NzA2MTliZDAtY2JjMS00ZDg2LTgwZDUtODU4Njk0MWI2N2Y5&per_type_limit=5&query=' + searchResult + '&type=playlist'
+  var apiUrl = 'https://api.napster.com/v2.2/search/verbose?pretty=true&apikey=NzA2MTliZDAtY2JjMS00ZDg2LTgwZDUtODU4Njk0MWI2N2Y5&per_type_limit=5&query=' + searchResult + '&type=playlist'
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
@@ -145,7 +145,7 @@ var clickEventHandler = function (event) {
 
 var getTracks = function (playlistId) {
 
-  var apiUrl = 'http://api.napster.com/v2.2/playlists/' + playlistId + '/tracks?pretty=true&apikey=NzA2MTliZDAtY2JjMS00ZDg2LTgwZDUtODU4Njk0MWI2N2Y5&limit=20'
+  var apiUrl = 'https://api.napster.com/v2.2/playlists/' + playlistId + '/tracks?pretty=true&apikey=NzA2MTliZDAtY2JjMS00ZDg2LTgwZDUtODU4Njk0MWI2N2Y5&limit=20'
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
