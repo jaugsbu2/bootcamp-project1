@@ -158,6 +158,20 @@ form .button {
     height: 150px;
   }
 
+  #control-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  #youtube-player {
+    margin-top: 25px;
+    margin-left: 50px; 
+    width: 650px;
+    height: 450px;
+  }
+
   .content {
     display: flex;
     flex-direction: column;
