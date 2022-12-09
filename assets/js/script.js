@@ -24,6 +24,13 @@ var searchResult = '';
 var playlistId = '';
 var trackNumber = 0;
 
+// Hide Next and Play buttons
+
+var hidePlayNextBtn = function() {
+  onPlayEl.style.visibility = "hidden";
+  nextEl.style.visibility = "hidden";
+}
+
 var displayModal = function () {
   modal.style.display = "block"
 }
@@ -39,7 +46,7 @@ var formSubmitHandler = function (event) {
   } else {
 
     var modalContent = document.createElement("p");
-    modalContent.textContent = "Please Input a Search Term"
+    modalContent.textContent = "Please type a genre, artist or song!"
     modalDivEl.appendChild(modalContent)
 
     modal.style.display = "block"
@@ -64,7 +71,6 @@ var getPlaylist = function (searchResult) {
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (info) {
-        console.log(info);
         renderPlaylists(info);
       });
     }
@@ -95,7 +101,7 @@ var renderPlaylists = function (info) {
 
   if (info.meta.returnedCount === 0) {
     var modalContent = document.createElement("p");
-    modalContent.textContent = "Your search did not return any results, try searching for a genre, artist, or song."
+    modalContent.textContent = "Your search came up with nothing! Try searching for a genre, artist, or song."
     modalDivEl.appendChild(modalContent)
 
     modal.style.display = "block"
@@ -112,7 +118,7 @@ var renderPlaylists = function (info) {
   }
   else {
 
-    playlistsContainerEl.InnerHTML = "";
+    playlistsContainerEl.innerHTML = "";
     trackListEl.innerHTML = "";
     for (i = 0; i < info.search.data.playlists.length; i++) {
       var playlistName = info.search.data.playlists[i].name;
@@ -144,7 +150,6 @@ var getTracks = function (playlistId) {
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (info) {
-        console.log(info)
         renderTracks(info)
         localStorage.setItem(playlistId, JSON.stringify(info)); // save playlistID and the tracks for specific playslit to localstorage as JSON readable
       });
@@ -153,7 +158,7 @@ var getTracks = function (playlistId) {
       console.log(response)
 
       var modalContent = document.createElement("p");
-      modalContent.textContent = "Napster is Unreachable... Bummer, try again later."
+      modalContent.textContent = "Napster says not today... Bummer! Try again later."
       modalDivEl.appendChild(modalContent)
 
       modal.style.display = "block"
@@ -192,7 +197,17 @@ var renderTracks = function (info) {
 
     trackListEl.appendChild(trackEl)
   }
+
   trackListEl.setAttribute('class', 'overflow')
+
+
+  trackListEl.setAttribute('class', 'overflow')
+
+  onPlayEl.style.visibility = "visible";   // Show next and play buttons
+  nextEl.style.visibility = "visible";
+
+
+
 }
 
 // Youtube video section of the JS
@@ -202,7 +217,8 @@ var onPlayHandler = function (event) {
   if (dataState == 'true') {
     var onPlay = event.target.getAttribute("id");
     if (onPlay) {
-      getYoutubeVideo(playlistId)
+      trackNumber = 0
+      getYoutubeVideo(playlistId, trackNumber)
     }
   } else {
     return;
@@ -210,17 +226,15 @@ var onPlayHandler = function (event) {
 
 }
 
-var getYoutubeVideo = function (playlistId, trackNumber = 0) {
+var getYoutubeVideo = function (playlistId, trackNumber) {
 
-  console.log(trackNumber)
   var playlistObject = JSON.parse(localStorage.getItem(playlistId));
   var artistName = playlistObject.tracks[trackNumber].artistName;
   var songTitle = playlistObject.tracks[trackNumber].name;
   var artistNameFormat = artistName.replace(/\s/g, '%20');
   var songTitleFormat = songTitle.replace(/\s/g, '%20');
 
-  var searchString = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=' + artistNameFormat + '%20' + songTitleFormat + '&key=AIzaSyA9MRrVXUUlMjQsmZEy6sFRTB7c4NhqVUU';
-  console.log(searchString)
+  var searchString = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=' + artistNameFormat + '%20' + songTitleFormat + '&key=AIzaSyDBT44UjcgCPvPRskbYZQBJVdTVWFvh8u8';
 
   fetch(searchString)
     .then(function (response) {
@@ -231,7 +245,7 @@ var getYoutubeVideo = function (playlistId, trackNumber = 0) {
         console.log(response)
 
         var modalContent = document.createElement("p");
-        modalContent.textContent = "YouTube is Unreachable... Bummer, try again later."
+        modalContent.textContent = "YouTube says not today... Bummer! Try again later."
         modalDivEl.appendChild(modalContent)
 
         modal.style.display = "block"
@@ -249,7 +263,6 @@ var getYoutubeVideo = function (playlistId, trackNumber = 0) {
       }
     })
     .then(function (data) {
-      console.log(data);
       var videos = data.items
       for (video of videos) {
         var youtubeVideo = video.id.videoId;
@@ -276,9 +289,8 @@ var chooseSong = function (event) {
   if (dataState == 'true') {
     var pickSong = event.target.getAttribute("tracknum");
     if (pickSong) {
-      console.log('Choose song hit')
-      console.log(pickSong)
-      trackNumber = pickSong;
+      var pickSongNum = Number(pickSong) // convert picksong string to Number
+      trackNumber = pickSongNum;
       getYoutubeVideo(playlistId, trackNumber)
     }
   } else {
@@ -286,8 +298,8 @@ var chooseSong = function (event) {
   }
 }
 
-// hide buttons until playlist tracks is rendered on screen
 
+hidePlayNextBtn()
 
 // Event listeners for button clicks
 

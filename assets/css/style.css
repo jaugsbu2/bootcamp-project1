@@ -34,6 +34,14 @@ html {
     background-image: url(extralarge.jpg);
 }
 
+footer {
+    font-family: Thunderstorm;
+    color: rgb(2 255 218);
+    font-size: 50px;
+    -webkit-text-stroke: 1.5px black;
+    text-align: center;
+}
+
 form .button {
     color: white;
     background-color: black;
@@ -73,6 +81,7 @@ form .button {
     font-family: sans-serif;
     border-radius: 10px;
     margin: 5px;
+    width: 50%;
     display: block;
 }
 
@@ -96,15 +105,22 @@ form .button {
     width: 100%;
 }
 
+.overflow {
+    overflow-y: scroll;
+    height: 680px;
+}
+
 #youtube {
     display: flex;
     flex-direction: column;
     width: 66%;
 }
 
+
 #youtube-player {
   margin-left: 100px;
 }
+
 
 
 /* The Modal (background) */
@@ -123,11 +139,15 @@ form .button {
   
   /* Modal Content/Box */
   .modal-content {
-    background-color: #fefefe;
+    background-image: url(CbaR0c_WEAExNlA.jpg);
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    font-family: Thunderstorm;
+    font-size: 40px;
+    color: white;
+    text-align: center;
   }
   
   /* The Close Button */
