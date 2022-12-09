@@ -7,17 +7,14 @@ This is a website that, after the user logs into their account, they are able to
 ## User Story
 
 As a music listener
-I WANT to be able to login with my spotify credentials.
-WHEN search for a playlist.
+WHEN search for an artist, genres or playlists on Napster.
 THEN I am presented with a list of playlists.
-WHEN I select a playlist.
-THEN I am taken to the page showing the playlist songs and a youtube video player.
-WHEN the player loads.
-THEN it streams the most viewed video on youtube of that song title and artist.
+WHEN I can view the songs in the playlist.
+WHEN a song is selected.
+THEN a YouTube video is embedded and streams the top search result from that video.
 WHEN a video ends.
-THEN the next song is fetched from youtube and played.
-IF no video is found for the search on youtube.
-THEN the song is skipped and the next song is searched and played.
+THEN the User selects the next video.
+
 
 ## Tasks
 Look into Spotify and youtube API's to find queries to use.
