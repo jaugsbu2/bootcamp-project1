@@ -267,8 +267,28 @@ var nextSongHandler = function (event) {
   if (dataState == 'true') {
     var nextSong = event.target.getAttribute("id");
     if (nextSong) {
+      if (trackNumber < 19) {
       trackNumber += 1;
       getYoutubeVideo(playlistId, trackNumber)
+      }
+      else {
+        var modalContent = document.createElement("p");
+        modalContent.textContent = "You're at the end of the playlist. Select a different track or playlist."
+        modalDivEl.appendChild(modalContent)
+
+        modal.style.display = "block"
+        modalSpan.onclick = function () {
+          modal.style.display = "none";
+          modalDivEl.removeChild(modalContent)
+        }
+        window.onclick = function (event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            modalDivEl.removeChild(modalContent)
+          }
+        }
+        return
+      }
     }
   } else {
     return;
